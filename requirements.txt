@@ -1,0 +1,5 @@
+streamlit
+streamlit-folium
+gspread
+oauth2client
+folium
