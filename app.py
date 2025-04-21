@@ -145,7 +145,7 @@ if st.button("Enviar formulario"):
         service_account_info = json.loads(st.secrets["GCP_SERVICE_ACCOUNT"])
         creds = ServiceAccountCredentials.from_json_keyfile_dict(service_account_info, scope)
         client = gspread.authorize(creds)
-        sheet = client.open("Encuesta_Geolocalizada").sheet1
+        sheet = client.open("Encuesta_Comercio_2025").sheet1
 
         fila = [
             canton, distrito, enlace, edad, sexo, escolaridad, tipo_local,
