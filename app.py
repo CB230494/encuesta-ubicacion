@@ -4,6 +4,7 @@ import folium
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import datetime
+import json
 
 st.set_page_config(page_title="Encuesta Comercio", layout="centered")
 st.title("Encuesta de percepción ciudadana en zonas comerciales")
@@ -141,7 +142,8 @@ if st.button("Enviar formulario"):
         fecha = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
-        creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
+        service_account_info = json.loads(st.secrets["GCP_SERVICE_ACCOUNT"])
+        creds = ServiceAccountCredentials.from_json_keyfile_dict(service_account_info, scope)
         client = gspread.authorize(creds)
         sheet = client.open("Encuesta_Geolocalizada").sheet1
 
@@ -163,3 +165,4 @@ if st.button("Enviar formulario"):
         st.markdown(f"📍 [Ver ubicación seleccionada en Google Maps]({enlace})")
         del st.session_state["lat"]
         del st.session_state["lng"]
+
